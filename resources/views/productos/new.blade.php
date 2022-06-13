@@ -1,54 +1,100 @@
 @extends('layouts.menu')
-
 @section('contenido')
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<body>
+      <div class="container">
+        
 <div class="row">
     <h1 class=" blue-text text-darken-3">nuevo producto:</h1>
 </div>
 <div class="row">
     <form
-     action="" class="col s8"
-     method="POST">
+     action="{{route('productos.store')}}" 
+     method="POST"
+     class="col s8"
+     enctype="multipart/form-data"
+     >
+     @csrf
      <div class="row">
          <div class="col s8 input-field">
+         <i class="material-icons prefix">comment</i>
              <input 
                 type="text"
                 id="nombre"
                 name="nombre"
+                class="validate"
                 placeholder="nombre de producto"/>
              <label for="nombre">nombre del producto</label>
          </div>
      </div>
      <div class="row">
         <div class="col s8 input-field">
+        <i class="material-icons prefix">mode_edit</i>
         <textarea
-          name="des"
-          id="des" 
+          name="descripcion"
+          id="descripcion" 
           class="materialize-textarea"></textarea>
           <label for="des">descripcion</label>
      </div>
    </div>
    <div class="row">
        <div class="col s8 input-field">
+       <i class="material-icons prefix">monetization_on</i>
        <input
-          type="text"
+          type="number"
           id="precio"
-          name="precio"/>
+          name="precio"
+          class="validate"/>
           <label for="precio">precio</label>
        </div>
     </div>
     <div class="row">
        <div class="col s8 file-field input-field">
-       <div class="btn">
+       <div class="btn deep-purple darken-3">
        <span>imagenes del producto</span>
        <input type="file" name="imagen">
        </div>
        <div class="file-path-wrapper">
-           <input type="text" class="file-path">
+       <i class="material-icons prefix">photo_camera</i>
+           <input type="text" class="file-path validate">
 
            </div>
            </div>
        
     </div>
+    <div class="row">
+        <div class="col s8 imput-field">
+            <select name="marca" id="marca">
+                @foreach($marcas as $marca)
+                <option value="{{ $marca->id}}">
+                    {{$marca->nombre}}
+                </option>
+                @endforeach
+            </select>
+            <label>seleccione marca</label>
+        </div>
+    </div>
+
+    
+    <div class="row">
+    <div class="col s8 imput-field">
+            <select name="categoria" id="categoria">
+                @foreach($categorias as $categoria)
+                <option  value="{{ $categoria->id}}">
+                    {{$categoria->nombre}}
+                </option>
+                @endforeach
+            </select>
+            <label>seleccione categoria</label>
+        </div>
+    </div>
+
+    <div class="row">
+    <button class="btn deep-purple darken-3" type="submit" name="action">Guardar producto<i class="material-icons right">send</i>
+  </button>
+    </div>
   </form>
 </div>
+</div>
+    </body>
 @endsection

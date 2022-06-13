@@ -45,7 +45,27 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      //crear el objeto uploadedfile
+      $archivo = $request->imagen;
+      //capturar nombre "original" del archivo
+      // desde el cliente
+      $nombre_archivo = $archivo->getClientOriginalName();
+      var_dump($nombre_archivo);
+      //mover el archivo a la carpeta "public/img"
+      $ruta = public_path();
+      var_dump($ruta);
+      $archivo->move("$ruta/img", $nombre_archivo);
+      //registrar producto
+      $producto = new Producto;
+      $producto->nombre = $request->nombre;
+      $producto->descripcion = $request->descripcion;
+      $producto->precio = $request->precio;
+      $producto->imagen = $request->imagen;
+      $producto->marca_id = $request->marca;
+      $producto->categoria_id = $request->categoria;
+      $producto->save();
+      echo "producto registrado";
+
     }
 
     /**
