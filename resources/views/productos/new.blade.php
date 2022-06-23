@@ -1,5 +1,10 @@
 @extends('layouts.menu')
 @section('contenido')
+@if(session('mensajito'))
+<div class="row">
+    <p>{{session('mensajito') }}</p>
+</div>
+@endif
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <body>
       <div class="container">
@@ -25,27 +30,30 @@
                 class="validate"
                 placeholder="nombre de producto"/>
              <label for="nombre">nombre del producto</label>
-         </div>
+         <strong>{{$errors->first('nombre')}}</strong>
+            </div>
      </div>
      <div class="row">
         <div class="col s8 input-field">
         <i class="material-icons prefix">mode_edit</i>
         <textarea
-          name="descripcion"
+          name="desc"
           id="descripcion" 
           class="materialize-textarea"></textarea>
           <label for="des">descripcion</label>
+          <strong>{{$errors->first('desc')}}</strong>
      </div>
    </div>
    <div class="row">
        <div class="col s8 input-field">
        <i class="material-icons prefix">monetization_on</i>
        <input
-          type="number"
+          type="text"
           id="precio"
           name="precio"
           class="validate"/>
           <label for="precio">precio</label>
+          <strong>{{$errors->first('precio')}}</strong>
        </div>
     </div>
     <div class="row">
@@ -57,6 +65,7 @@
        <div class="file-path-wrapper">
        <i class="material-icons prefix">photo_camera</i>
            <input type="text" class="file-path validate">
+           <strong>{{$errors->first('imagen')}}</strong>
 
            </div>
            </div>
@@ -64,7 +73,8 @@
     </div>
     <div class="row">
         <div class="col s8 imput-field">
-            <select name="marca" id="marca">
+        <select name="marca" id="marca">
+                <option value="">Seleccione marca</option>
                 @foreach($marcas as $marca)
                 <option value="{{ $marca->id}}">
                     {{$marca->nombre}}
@@ -72,6 +82,7 @@
                 @endforeach
             </select>
             <label>seleccione marca</label>
+            <strong>{{$errors->first('categoria')}}</strong>
         </div>
     </div>
 
@@ -79,6 +90,7 @@
     <div class="row">
     <div class="col s8 imput-field">
             <select name="categoria" id="categoria">
+                <option value="">Seleccione categoria</option>
                 @foreach($categorias as $categoria)
                 <option  value="{{ $categoria->id}}">
                     {{$categoria->nombre}}
@@ -86,6 +98,7 @@
                 @endforeach
             </select>
             <label>seleccione categoria</label>
+            <strong>{{$errors->first('categoria')}}</strong>
         </div>
     </div>
 
